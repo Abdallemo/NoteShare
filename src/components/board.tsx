@@ -17,7 +17,7 @@ export default function Board() {
         setHaschecked(true)
     },[])
     return (
-        <div className={clsx('flex h-full w-full gap-3 overflow-scroll p-12')}>
+        <div className={clsx('flex h-full w-full gap-3 overflow-scroll p-12 justify-center')}>
             <Column title="Backlog" column='backlog' cards={cards} headingColor="text-neutral-500" setCards={setCards} />
             <Column title="Doing" column='doing' cards={cards} headingColor="text-yellow-200" setCards={setCards} />
             <Column title="todo" column='todo' cards={cards} headingColor="text-blue-200" setCards={setCards} />
