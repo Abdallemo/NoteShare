@@ -4,20 +4,25 @@ import {  DragEvent, useState } from "react";
 import { FaFire } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import {motion} from 'framer-motion'
+
+
 type CardProp = CardType & {
-    handleDragStart:(event: DragEvent, card: CardType) =>void
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    handleDragStart:Function
 }
 
 export default function Card({ column, title, id ,handleDragStart}: CardProp) {
     return (
         <>
             <DropIndicator beforeId={id} column={column} />
-            <div
+            <motion.div
+             layout
+             layoutId={id}
                 draggable
                 onDragStart={(e)=>handleDragStart(e,{column, title, id})}
                 className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing">
                 <p className="text-sm text-neutral-100">{title}</p>
-            </div>
+            </motion.div>
         </>
     );
 }
@@ -28,8 +33,6 @@ export function DeleteArea({ setCards }: Pick<ColumnProps, "setCards">) {
     const [active, setActive] = useState(false);
     
     const handleDragOver = (e:DragEvent)=>{
-       
-       
         e.preventDefault();
         setActive(true)
     }

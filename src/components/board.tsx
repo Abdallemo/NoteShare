@@ -1,11 +1,21 @@
 import clsx from "clsx";
-import Column from "./Column";
-import { useState } from "react";
-import { DEFAULT_CARDS } from "../lib/MockDara";
+import Column, { CardType } from "./Column";
+import { useEffect, useState } from "react";
 import { DeleteArea } from "./Card";
 
 export default function Board() {
-    const [cards,setCards] = useState(DEFAULT_CARDS)
+    const [cards,setCards] = useState<CardType[]>([])
+    const [hasChecked,setHaschecked] = useState(false)
+    
+    useEffect(()=>{
+    if(hasChecked) localStorage.setItem("cards", JSON.stringify(cards));
+
+    },[cards,hasChecked])
+    useEffect(()=>{
+        const cardData = localStorage.getItem("cards");
+        setCards(cardData? JSON.parse(cardData):[]);
+        setHaschecked(true)
+    },[])
     return (
         <div className={clsx('flex h-full w-full gap-3 overflow-scroll p-12')}>
             <Column title="Backlog" column='backlog' cards={cards} headingColor="text-neutral-500" setCards={setCards} />
